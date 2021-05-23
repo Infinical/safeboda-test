@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import express from "express";
+import express, { Request, Response } from "express";
 import { env } from "process";
 
 const prisma = new PrismaClient();
@@ -18,6 +18,7 @@ function generateAccessToken(email: String) {
 
 // ... your REST API routes will go here
 
+//admin
 app.post(`/create/user`, async (req, res) => {
   const token = generateAccessToken(req.body.email);
   const result = await prisma.user.create({
@@ -53,6 +54,60 @@ app.post(`/login/user`, async (req, res) => {
       }
     }
   );
+});
+
+//driver
+
+app.post("/driver", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const driver = await prisma.driver.create({
+    data: { ...req.body },
+  });
+
+  res.json({ driver: driver, token: token });
+});
+
+app.post("/driver/:id/suspend", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const driver = await prisma.driver.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      suspended: true,
+    },
+  });
+
+  res.status(204).json({ token: token });
+});
+
+app.delete("/driver/:id/suspend", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const driver = await prisma.driver.update({
+    where: {
+      id: req.params.id,
+    },
+    data: {
+      suspended: false,
+    },
+  });
+
+  res.status(204).json({ token: token });
+});
+
+//passenger
+
+app.post("/passanger", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const driver = await prisma.passenger.create({
+    data: { ...req.body },
+  });
+
+  res.json({ driver: driver, token: token });
 });
 
 app.listen(3000, () =>
