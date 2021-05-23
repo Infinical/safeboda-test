@@ -13,7 +13,7 @@ generator client {
 model User {
   @@map(name: "users")
   id     String    @default(uuid()) @id
-  email  String   @db.VarChar(255)
+  email  String    @unique
   password String 
   createdAt DateTime @default(now())
   role    Role     @default(ADMIN)
