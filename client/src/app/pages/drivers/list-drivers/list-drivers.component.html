@@ -54,7 +54,7 @@
       <h2 class="uk-modal-title">Create a driver</h2>
     </div>
     <div class="uk-modal-body">
-      <form class="uk-form-stacked">
+      <form class="uk-form-stacked" [formGroup]="createForm">
         <div>
           <label class="uk-form-label">Name</label>
           <div class="uk-form-controls">
@@ -62,15 +62,17 @@
               class="uk-input uk-form-width-large"
               type="text"
               placeholder="Name"
+              formControlName="name"
             />
           </div>
         </div>
-        <div>
+        <div class="uk-margin-top">
           <div class="uk-form-label">Phone Number</div>
           <div class="uk-form-controls">
             <input
               class="uk-input uk-form-width-large"
               type="text"
+              formControlName="phone"
               placeholder="Phone Number"
             />
           </div>
@@ -81,7 +83,14 @@
       <button class="uk-button uk-button-default uk-modal-close" type="button">
         Cancel
       </button>
-      <button class="uk-button uk-button-primary" type="button">Save</button>
+      <button
+        class="uk-button uk-button-primary"
+        type="button"
+        [disabled]="this.createForm.invalid"
+        (click)="saveDriver()"
+      >
+        Save
+      </button>
     </div>
   </div>
 </div>

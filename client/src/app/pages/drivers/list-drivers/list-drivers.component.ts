@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { UIkit } from 'uikit';
 declare var UIkit: any;
 
@@ -8,12 +9,26 @@ declare var UIkit: any;
   styleUrls: ['./list-drivers.component.css'],
 })
 export class ListDriversComponent implements OnInit {
-  @ViewChild('createDriver') createModal: ElementRef | undefined;
-  constructor() {}
+  createForm = this.fb.group({
+    name: ['', Validators.required],
+    phone: ['', Validators.required],
+  });
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
 
   createDriver() {
     UIkit.modal('#createDriver').show();
+  }
+
+  saveDriver() {
+    let formData = this.createForm.value;
+    const payload = {
+      name: formData.name,
+      phone: formData.phone,
+    };
+
+    console.log(payload);
   }
 }

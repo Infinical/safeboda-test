@@ -12,7 +12,10 @@
   </div>
 
   <div>
-    <button class="uk-button uk-margin uk-button-primary">
+    <button
+      class="uk-button uk-margin uk-button-primary"
+      (click)="createPassenger()"
+    >
       Create Passenger
     </button>
   </div>
@@ -44,3 +47,53 @@
     </tr>
   </tbody>
 </table>
+
+<!-- create nodal -->
+
+<div id="createPassenger" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Create a passenger</h2>
+    </div>
+    <div class="uk-modal-body">
+      <form class="uk-form-stacked" [formGroup]="createForm">
+        <div>
+          <label class="uk-form-label">Name</label>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              placeholder="Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Phone Number</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="phone"
+              placeholder="Phone Number"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">
+        Cancel
+      </button>
+      <button
+        class="uk-button uk-button-primary"
+        type="button"
+        [disabled]="this.createForm.invalid"
+        (click)="savePassenger()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
