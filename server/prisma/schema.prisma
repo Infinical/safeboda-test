@@ -29,6 +29,7 @@ model Driver {
    name String
    phone String  @unique
    suspended  Boolean     @default(false)
+   ride Ride?
    createdAt  DateTime    @default(now())
 }
 
@@ -37,5 +38,27 @@ model  Passenger {
    id   String      @default(uuid()) @id
    name String
    phone String  @unique
+   ride Ride?
    createdAt  DateTime    @default(now())
+}
+
+model Ride {
+    @@map(name: "rides")
+    id   String      @default(uuid()) @id
+    driver    Driver    @relation(fields: [driverId], references: [id])
+    driverId String
+    passenger Passenger @relation(fields: [passengerId], references: [id])
+    passengerId String
+    originx String
+    originy String
+    destinationx String
+    destinationy String
+    status Status? @default(ONGOING)
+    createdAt  DateTime    @default(now())
+}
+
+
+enum Status {
+  ONGOING
+  DONE
 }

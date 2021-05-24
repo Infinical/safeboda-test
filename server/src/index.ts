@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import express, { Request, Response } from "express";
+import express, { request, Request, Response } from "express";
 import { env } from "process";
 
 const prisma = new PrismaClient();
@@ -103,11 +103,59 @@ app.delete("/driver/:id/suspend", async (req: Request, res: Response) => {
 app.post("/passanger", async (req: Request, res: Response) => {
   const token = generateAccessToken(req.body.email);
 
-  const driver = await prisma.passenger.create({
+  const passenger = await prisma.passenger.create({
     data: { ...req.body },
   });
 
-  res.json({ driver: driver, token: token });
+  res.json({ passenger: passenger, token: token });
+});
+
+//rides
+app.post(
+  "/ride/:passengerId/:driverId",
+  async (req: Request, res: Response) => {
+    const token = generateAccessToken(req.body.email);
+
+    const ride = await prisma.ride.create({
+      data: {
+        driverId: req.params.driverId,
+        passengerId: req.params.passengerId,
+        originx: req.body.originx,
+        originy: req.body.originy,
+        destinationx: req.body.destinationx,
+        destinationy: req.body.destinationy,
+      },
+    });
+
+    res.json({ ride: ride, token: token });
+  }
+);
+
+app.put("/ride/:rideId/stop", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const ride = await prisma.ride.update({
+    where: {
+      id: req.params.rideId,
+    },
+    data: {
+      status: "DONE",
+    },
+  });
+
+  res.status(204).json({ ride: ride, token: token });
+});
+
+app.get("/rides/ongoing", async (req: Request, res: Response) => {
+  const token = generateAccessToken(req.body.email);
+
+  const ride = await prisma.ride.findMany({
+    where: {
+      status: "ONGOING",
+    },
+  });
+
+  res.json({ ride: ride, token: token });
 });
 
 app.listen(3000, () =>
