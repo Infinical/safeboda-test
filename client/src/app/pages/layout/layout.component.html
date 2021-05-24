@@ -1,5 +1,11 @@
 <nav class="uk-navbar-container" uk-navbar>
   <div class="uk-navbar-left">
+    <a class="uk-navbar-item uk-logo" href="#">
+      <img src="assets/logo.png" alt="" srcset="" />
+    </a>
+  </div>
+
+  <div class="uk-navbar-right">
     <ul class="uk-navbar-nav">
       <li routerLinkActive><a href="#">Dashboard</a></li>
       <li>
@@ -7,6 +13,7 @@
       </li>
       <li><a [routerLink]="['/passengers']">Passengers</a></li>
       <li><a [routerLink]="['/rides']">Rides</a></li>
+      <li><a uk-icon="icon: sign-out">Log Out</a></li>
     </ul>
   </div>
 </nav>

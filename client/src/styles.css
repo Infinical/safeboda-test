@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
+.uk-button-primary {
+  background-color: #ff8800 !important;
+}
+
+* {
+  font-family: "Lato", sans-serif;
+}
+
+.uk-input,
+.uk-select,
+.uk-textarea {
+  border-radius: 0.4vw !important;
+  border-color: #ff8800 !important ;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+  background-color: #184857 !important;
+}
+
+.uk-navbar-nav > li > a {
+  color: white !important;
+}
+
+.uk-navbar-nav > li > a :hover :active {
+  color: #ff8800 !important ;
+}
+
+.uk-table th {
+  color: #ff8800 !important;
+  font-weight: 700;
+}
+
+.uk-card-primary {
+  background-color: #184857 !important;
+}
+
+.uk-card-title {
+  color: #ff8800 !important;
+}
