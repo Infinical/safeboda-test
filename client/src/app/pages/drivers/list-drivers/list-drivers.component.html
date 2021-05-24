@@ -9,7 +9,12 @@
   </div>
 
   <div>
-    <button class="uk-button uk-margin uk-button-primary">Create Driver</button>
+    <button
+      class="uk-button uk-margin uk-button-primary"
+      (click)="createDriver()"
+    >
+      Create Driver
+    </button>
   </div>
 </div>
 
@@ -39,3 +44,44 @@
     </tr>
   </tbody>
 </table>
+
+<!-- create nodal -->
+
+<div id="createDriver" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Create a driver</h2>
+    </div>
+    <div class="uk-modal-body">
+      <form class="uk-form-stacked">
+        <div>
+          <label class="uk-form-label">Name</label>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              placeholder="Name"
+            />
+          </div>
+        </div>
+        <div>
+          <div class="uk-form-label">Phone Number</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              placeholder="Phone Number"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">
+        Cancel
+      </button>
+      <button class="uk-button uk-button-primary" type="button">Save</button>
+    </div>
+  </div>
+</div>

@@ -4,9 +4,7 @@ import { DriversRoutingModule } from './drivers-routing.module';
 import { ListDriversComponent } from './list-drivers/list-drivers.component';
 
 @NgModule({
-  declarations: [
-    ListDriversComponent
-  ],
+  declarations: [ListDriversComponent],
   imports: [CommonModule, DriversRoutingModule],
 })
 export class DriversModule {}

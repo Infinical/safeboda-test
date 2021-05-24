@@ -16,6 +16,8 @@
 .uk-textarea {
   border-radius: 0.4vw !important;
   border-color: #ff8800 !important ;
+  margin-top: 0.5vh;
+  margin-bottom: 0.5vh;
 }
 
 .uk-navbar-container:not(.uk-navbar-transparent) {
