@@ -1,0 +1,16 @@
+<nav class="uk-navbar-container" uk-navbar>
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li routerLinkActive><a href="#">Dashboard</a></li>
+      <li>
+        <a [routerLink]="['/driver']">Drivers</a>
+      </li>
+      <li><a [routerLink]="['/passengers']">Passengers</a></li>
+      <li><a [routerLink]="['/rides']">Rides</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="uk-container uk-container-expand uk-margin">
+  <router-outlet></router-outlet>
+</div>
