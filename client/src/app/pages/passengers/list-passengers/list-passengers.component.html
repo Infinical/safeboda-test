@@ -4,13 +4,9 @@
 </ul>
 
 <div
-  class="uk-width-1-1 uk-flex uk-flex-between uk-padding-small uk-margin"
+  class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small uk-margin"
   uk-grid
 >
-  <div class="uk-margin uk-width-2-3">
-    <input class="uk-input" type="text" placeholder="Search" />
-  </div>
-
   <div>
     <button
       class="uk-button uk-margin uk-button-primary"
@@ -24,26 +20,18 @@
 <table class="uk-table uk-table-divider">
   <thead>
     <tr>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Phone</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
+    <tr *ngFor="let passanger of passangers">
+      <td>{{ passanger.id }}</td>
+      <td>{{ passanger.name }}</td>
+      <td>{{ passanger.phone }}</td>
+      <td>{{ passanger.phone }}</td>
     </tr>
   </tbody>
 </table>
