@@ -17,7 +17,8 @@ The solution is built with Javascript and Typescript
 
 1.  Switch to the client folder
 
-In your terminal session 2. Run **_npm i_** to install dependencies 3. Run **_ng serve -o _** to run the front end locally
+2. Run **_npm i_** to install dependencies 
+3. Run **_ng serve -o _** to run the front end locally
 
 #### Running the backend
 
