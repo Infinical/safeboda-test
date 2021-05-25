@@ -4,49 +4,152 @@
 </ul>
 
 <div
-  class="
-    uk-card
-    uk-card-default
-    uk-card-body
-    uk-width-1-1
-    uk-flex
-    uk-flex-between
-    uk-padding-small
-  "
-  uk-grid
+  *ngIf="this.general.loading"
+  class="uk-text-center"
+  style="padding-top: 30%"
 >
-  <div class="uk-margin uk-width-2-3">
-    <input class="uk-input" type="text" placeholder="Search" />
-  </div>
-
-  <div>
-    <button class="uk-button uk-margin uk-button-primary">Create Ride</button>
-  </div>
+  <span class="" uk-spinner="ratio: 2"></span>
 </div>
 
-<table class="uk-table uk-table-divider">
-  <thead>
-    <tr>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!this.general.loading">
+  <div class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small" uk-grid>
+    <div>
+      <button
+        class="uk-button uk-margin uk-button-primary"
+        (click)="createRide()"
+      >
+        Create Ride
+      </button>
+    </div>
+  </div>
+
+  <table class="uk-table uk-table-divider">
+    <thead>
+      <tr>
+        <th>ID</th>
+
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ride of rides">
+        <td>{{ ride.id }}</td>
+
+        <td>{{ ride.status }}</td>
+        <td>
+          <button
+            class="uk-button uk-button-primaru uk-button-small"
+            (click)="finishRide(ride.id)"
+          >
+            Finish Ride
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- create nodal -->
+
+<div id="createRide" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Create a ride</h2>
+    </div>
+    <div class="uk-modal-body">
+      <form class="uk-form-stacked" [formGroup]="createForm">
+        <div>
+          <label class="uk-form-label">Driver</label>
+          <div class="uk-form-controls">
+            <select
+              class="uk-select uk-form-width-large"
+              formControlName="driver"
+            >
+              <option></option>
+              <option *ngFor="let driver of drivers" value="{{ driver.id }}">
+                {{ driver.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Passenger</div>
+          <div class="uk-form-controls">
+            <select
+              class="uk-select uk-form-width-large"
+              formControlName="passenger"
+            >
+              <option></option>
+              <option
+                *ngFor="let passenger of passengers"
+                value="{{ passenger.id }}"
+              >
+                {{ passenger.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Origin Latitude</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="originlat"
+            />
+          </div>
+        </div>
+
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Origin Longitude</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="originlong"
+              placeholder=""
+            />
+          </div>
+        </div>
+
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Destination Latitude</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="destinationlat"
+            />
+          </div>
+        </div>
+
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Destination Longitude</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="destinationlong"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">
+        Cancel
+      </button>
+      <button
+        class="uk-button uk-button-primary"
+        type="button"
+        [disabled]="this.createForm.invalid"
+        (click)="saveRide()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>

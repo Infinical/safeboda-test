@@ -15,6 +15,7 @@ model User {
   id     String    @default(uuid()) @id
   email  String    @unique
   password String 
+  refreshToken String?
   createdAt DateTime @default(now())
   role    Role     @default(ADMIN)
 }
@@ -29,7 +30,7 @@ model Driver {
    name String
    phone String  @unique
    suspended  Boolean     @default(false)
-   ride Ride?
+   ride Ride[]
    createdAt  DateTime    @default(now())
 }
 
@@ -38,7 +39,7 @@ model  Passenger {
    id   String      @default(uuid()) @id
    name String
    phone String  @unique
-   ride Ride?
+   ride Ride[]
    createdAt  DateTime    @default(now())
 }
 

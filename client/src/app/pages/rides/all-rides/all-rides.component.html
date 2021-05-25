@@ -1,0 +1,30 @@
+<ul class="uk-breadcrumb">
+  <li><a [routerLink]="['/rides/']">Rides</a></li>
+  <li><span>All Rides</span></li>
+</ul>
+
+<div
+  *ngIf="this.general.loading"
+  class="uk-text-center"
+  style="padding-top: 30%"
+>
+  <span class="" uk-spinner="ratio: 2"></span>
+</div>
+
+<div *ngIf="!this.general.loading">
+  <table class="uk-table uk-table-divider">
+    <thead>
+      <tr>
+        <th>Driver ID</th>
+        <th>Passenger ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ride of rides">
+        <td>{{ ride.id }}</td>
+
+        <td>{{ ride.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

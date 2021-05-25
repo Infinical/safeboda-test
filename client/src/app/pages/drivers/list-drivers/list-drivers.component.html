@@ -4,49 +4,108 @@
 </ul>
 
 <div
-  class="
-    uk-card
-    uk-card-default
-    uk-card-body
-    uk-width-1-1
-    uk-flex
-    uk-flex-between
-    uk-padding-small
-  "
-  uk-grid
+  *ngIf="this.general.loading"
+  class="uk-text-center"
+  style="padding-top: 30%"
 >
-  <div class="uk-margin uk-width-2-3">
-    <input class="uk-input" type="text" placeholder="Search" />
-  </div>
-
-  <div>
-    <button class="uk-button uk-margin uk-button-primary">Create Driver</button>
-  </div>
+  <span class="" uk-spinner="ratio: 2"></span>
 </div>
 
-<table class="uk-table uk-table-divider">
-  <thead>
-    <tr>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!this.general.loading">
+  <div class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small" uk-grid>
+    <div>
+      <button
+        class="uk-button uk-margin uk-button-primary"
+        (click)="createDriver()"
+      >
+        Create Driver
+      </button>
+    </div>
+  </div>
+
+  <table class="uk-table uk-table-divider">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Drivers Name</th>
+        <th>Drivers Phone Number</th>
+        <th>Suspended</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let driver of drivers">
+        <td>{{ driver.id }}</td>
+        <td>{{ driver.name }}</td>
+        <td>{{ driver.phone }}</td>
+        <td>{{ driver.suspended }}</td>
+        <td>
+          <button
+            class="uk-button uk-button-danger uk-button-small"
+            (click)="suspendDriver(driver.id)"
+            *ngIf="driver.suspended == false"
+          >
+            Suspend
+          </button>
+          <button
+            class="uk-button uk-button-primary uk-button-small"
+            (click)="removeSuspension(driver.id)"
+            *ngIf="driver.suspended == true"
+          >
+            Remove Suspension
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- create nodal -->
+
+<div id="createDriver" uk-modal>
+  <div class="uk-modal-dialog">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h2 class="uk-modal-title">Create a driver</h2>
+    </div>
+    <div class="uk-modal-body">
+      <form class="uk-form-stacked" [formGroup]="createForm">
+        <div>
+          <label class="uk-form-label">Name</label>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              placeholder="Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="uk-margin-top">
+          <div class="uk-form-label">Phone Number</div>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input uk-form-width-large"
+              type="text"
+              formControlName="phone"
+              placeholder="Phone Number"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="uk-modal-footer uk-text-right">
+      <button class="uk-button uk-button-default uk-modal-close" type="button">
+        Cancel
+      </button>
+      <button
+        class="uk-button uk-button-primary"
+        type="button"
+        [disabled]="this.createForm.invalid"
+        (click)="saveDriver()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
