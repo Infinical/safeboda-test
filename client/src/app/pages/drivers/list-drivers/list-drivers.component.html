@@ -3,10 +3,10 @@
   <li><span>List of Drivers</span></li>
 </ul>
 
-<div class="uk-width-1-1 uk-flex uk-flex-between uk-padding-small" uk-grid>
-  <div class="uk-margin uk-width-2-3">
+<div class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small" uk-grid>
+  <!-- <div class="uk-margin uk-width-2-3">
     <input class="uk-input" type="text" placeholder="Search" />
-  </div>
+  </div> -->
 
   <div>
     <button
@@ -21,26 +21,37 @@
 <table class="uk-table uk-table-divider">
   <thead>
     <tr>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
-      <th>Table Heading</th>
+      <th>ID</th>
+      <th>Drivers Name</th>
+      <th>Drivers Phone Number</th>
+      <th>Suspended</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
-    </tr>
-    <tr>
-      <td>Table Data</td>
-      <td>Table Data</td>
-      <td>Table Data</td>
+    <tr *ngFor="let driver of drivers">
+      <td>{{ driver.id }}</td>
+      <td>{{ driver.name }}</td>
+      <td>{{ driver.phone }}</td>
+      <td>{{ driver.suspended }}</td>
+      <td>
+        <button
+          class="uk-button uk-button-danger uk-button-small"
+          (click)="suspendDriver(driver.id)"
+          *ngIf="driver.suspended == false"
+        >
+          Suspend
+        </button>
+      </td>
+      <td>
+        <button
+          class="uk-button uk-button-primaru uk-button-small"
+          (click)="removeSuspension(driver.id)"
+          *ngIf="driver.suspended == true"
+        >
+          Remove Suspension
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

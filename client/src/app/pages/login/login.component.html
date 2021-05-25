@@ -1,7 +1,10 @@
 <div class="uk-grid-collapse" uk-grid>
   <div class="uk-width-1-4">
     <div class="container">
-      <form class="uk-form-stacked uk-margin uk-padding">
+      <form
+        class="uk-form-stacked uk-margin uk-padding"
+        [formGroup]="loginForm"
+      >
         <h3 class="uk-align-center">Login</h3>
         <div>
           <label class="uk-form-label">Email</label>
@@ -9,8 +12,8 @@
             <input
               class="uk-input uk-form-width-large"
               type="text"
-              placeholder="Name"
-              formControlName="name"
+              placeholder="email@email.com"
+              formControlName="email"
             />
           </div>
         </div>
@@ -19,8 +22,8 @@
           <div class="uk-form-controls">
             <input
               class="uk-input uk-form-width-large"
-              type="text"
-              formControlName="phone"
+              type="password"
+              formControlName="password"
               placeholder="****"
             />
           </div>
@@ -31,6 +34,8 @@
             class="
               uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom
             "
+            [disabled]="this.loginForm.invalid"
+            (click)="login()"
           >
             Log In
           </button>
