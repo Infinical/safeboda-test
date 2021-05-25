@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import express, { request, Request, Response } from "express";
-import { env } from "process";
+import { authenticateJWT } from "../middleware/token";
 
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
@@ -50,6 +50,7 @@ app.post(`/login`, async (req, res) => {
       } else if (!result) {
         return res.status(403).json({ message: "Wrong password" });
       } else {
+        res.set("Authorization", token);
         return res
           .status(200)
           .json({ token: token, message: "Login Successful" });
@@ -70,13 +71,17 @@ app.post("/driver", async (req: Request, res: Response) => {
   res.json({ driver: driver, token: token });
 });
 
-app.get("/driver/list", async (req: Request, res: Response) => {
-  const token = generateAccessToken(req.body.email);
+app.get(
+  "/driver/list",
 
-  const driver = await prisma.driver.findMany();
+  async (req: Request, res: Response) => {
+    const token = generateAccessToken(req.body.email);
 
-  res.json({ driver: driver, token: token });
-});
+    const driver = await prisma.driver.findMany();
+
+    res.json({ driver: driver, token: token });
+  }
+);
 
 app.post("/driver/:id/suspend", async (req: Request, res: Response) => {
   const token = generateAccessToken(req.body.email);
@@ -225,6 +230,40 @@ app.get("/rides", async (req: Request, res: Response) => {
   res.json({ ride: ride, token: token });
 });
 
+//dashboard
+
+app.get("/dashboard", async (req: Request, res: Response) => {
+  const drivers = await (await prisma.driver.findMany()).length;
+  const passengers = await (await prisma.passenger.findMany()).length;
+
+  const ongoing = await (
+    await prisma.ride.findMany({
+      where: {
+        status: "ONGOING",
+      },
+    })
+  ).length;
+
+  const completed = await (
+    await prisma.ride.findMany({
+      where: {
+        status: "DONE",
+      },
+    })
+  ).length;
+
+  res.json({
+    users: [
+      { name: "Drivers", value: drivers },
+      { name: "Passengers", value: passengers },
+    ],
+
+    rides: [
+      { name: "Ongoing Rides", value: ongoing },
+      { name: "Completed Rides", value: completed },
+    ],
+  });
+});
 app.listen(3000, () =>
   console.log("REST API server ready at: http://localhost:3000")
 );
