@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IDriver } from 'src/app/core/interface/driver.interface';
 import { DriverService } from 'src/app/core/services/driver.service';
+import { GeneralService } from 'src/app/core/services/general.service';
 // import { UIkit } from 'uikit';
 declare var UIkit: any;
 
@@ -18,27 +19,36 @@ export class ListDriversComponent implements OnInit {
 
   drivers: Array<IDriver> = [];
 
-  constructor(private fb: FormBuilder, private driverService: DriverService) {}
+  constructor(
+    private fb: FormBuilder,
+    private driverService: DriverService,
+    public general: GeneralService
+  ) {}
 
   ngOnInit(): void {
     this.fetchDrivers();
   }
 
   fetchDrivers() {
+    this.general.loading = true;
     this.driverService.fetchList().subscribe((resp: any) => {
       this.drivers = resp.driver;
-      console.log(resp);
+      this.general.loading = false;
     });
   }
 
   suspendDriver(id: String) {
+    this.general.loading = true;
     this.driverService.suspendDriver(id).subscribe((resp: any) => {
+      this.general.loading = false;
       this.fetchDrivers();
     });
   }
 
   removeSuspension(id: String) {
+    this.general.loading = true;
     this.driverService.removeSuspension(id).subscribe((resp: any) => {
+      this.general.loading = false;
       this.fetchDrivers();
     });
   }
@@ -47,6 +57,7 @@ export class ListDriversComponent implements OnInit {
   }
 
   saveDriver() {
+    this.general.loading = true;
     let formData = this.createForm.value;
     const payload: IDriver = {
       id: '',
@@ -57,6 +68,7 @@ export class ListDriversComponent implements OnInit {
 
     this.driverService.createDriver(payload).subscribe((resp: any) => {
       UIkit.modal('#createDriver').hide();
+      this.general.loading = false;
       this.createForm.reset();
       this.fetchDrivers();
     });

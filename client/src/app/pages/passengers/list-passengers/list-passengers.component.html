@@ -4,37 +4,47 @@
 </ul>
 
 <div
-  class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small uk-margin"
-  uk-grid
+  *ngIf="this.general.loading"
+  class="uk-text-center"
+  style="padding-top: 30%"
 >
-  <div>
-    <button
-      class="uk-button uk-margin uk-button-primary"
-      (click)="createPassenger()"
-    >
-      Create Passenger
-    </button>
-  </div>
+  <span class="" uk-spinner="ratio: 2"></span>
 </div>
 
-<table class="uk-table uk-table-divider">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Phone</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let passanger of passangers">
-      <td>{{ passanger.id }}</td>
-      <td>{{ passanger.name }}</td>
-      <td>{{ passanger.phone }}</td>
-      <td>{{ passanger.phone }}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!this.general.loading">
+  <div
+    class="uk-width-1-1 uk-flex uk-flex-right uk-padding-small uk-margin"
+    uk-grid
+  >
+    <div>
+      <button
+        class="uk-button uk-margin uk-button-primary"
+        (click)="createPassenger()"
+      >
+        Create Passenger
+      </button>
+    </div>
+  </div>
+
+  <table class="uk-table uk-table-divider">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let passanger of passangers">
+        <td>{{ passanger.id }}</td>
+        <td>{{ passanger.name }}</td>
+        <td>{{ passanger.phone }}</td>
+        <td>{{ passanger.phone }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- create nodal -->
 

@@ -12,7 +12,20 @@
         <a [routerLink]="['/dashboard/driver']">Drivers</a>
       </li>
       <li><a [routerLink]="['/dashboard/passengers']">Passengers</a></li>
-      <li><a [routerLink]="['/dashboard/rides']">Rides</a></li>
+      <!-- <li><a [routerLink]="['/dashboard/rides']">Rides</a></li> -->
+      <li>
+        <a>Rides</a>
+        <div class="uk-navbar-dropdown">
+          <ul class="uk-nav uk-navbar-dropdown-nav">
+            <li class="uk-active">
+              <a [routerLink]="['/dashboard/rides']">Ongoing Rides</a>
+            </li>
+            <li>
+              <a [routerLink]="['/dashboard/rides/all']">Finished Rides</a>
+            </li>
+          </ul>
+        </div>
+      </li>
       <li><a uk-icon="icon: sign-out">Log Out</a></li>
     </ul>
   </div>

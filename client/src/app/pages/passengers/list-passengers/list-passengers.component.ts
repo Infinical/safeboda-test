@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IPassenger } from 'src/app/core/interface/passenger.interface';
+import { GeneralService } from 'src/app/core/services/general.service';
 import { PassengerService } from 'src/app/core/services/passenger.service';
 
 declare var UIkit: any;
@@ -12,7 +13,8 @@ declare var UIkit: any;
 export class ListPassengersComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
-    private passangerService: PassengerService
+    private passangerService: PassengerService,
+    public general: GeneralService
   ) {}
 
   passangers: Array<IPassenger> = [];
@@ -27,9 +29,10 @@ export class ListPassengersComponent implements OnInit {
   }
 
   fetchPassangers() {
+    this.general.loading = true;
     this.passangerService.fetchList().subscribe((resp: any) => {
       this.passangers = resp.passanger;
-      console.log(resp);
+      this.general.loading = false;
     });
   }
 
@@ -38,12 +41,18 @@ export class ListPassengersComponent implements OnInit {
   }
 
   savePassenger() {
+    this.general.loading = true;
     let formData = this.createForm.value;
     const payload = {
+      id: '',
       name: formData.name,
       phone: formData.phone,
     };
-
-    console.log(payload);
+    this.passangerService.createPassenger(payload).subscribe((resp: any) => {
+      this.createForm.reset();
+      UIkit.modal('#createPassenger').hide();
+      this.general.loading = false;
+      this.fetchPassangers();
+    });
   }
 }
