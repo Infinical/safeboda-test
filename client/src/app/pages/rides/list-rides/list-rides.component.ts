@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Address } from 'ngx-google-places-autocomplete/objects/address';
+
 import { IDriver } from 'src/app/core/interface/driver.interface';
 import { IPassenger } from 'src/app/core/interface/passenger.interface';
 import { IRide } from 'src/app/core/interface/rides.interface';

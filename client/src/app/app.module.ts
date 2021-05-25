@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,10 +13,11 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptors';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    GooglePlaceModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {
